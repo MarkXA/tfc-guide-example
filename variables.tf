@@ -1,15 +1,11 @@
-variable "region" {
-  description = "AWS region"
-  default     = "us-west-1"
+variable "name_prefix" {
+  type        = string
+  default     = "rasp"
+  description = "Prefix of the resource name."
 }
 
-variable "instance_type" {
-  description = "Type of EC2 instance to provision"
-  default     = "t2.micro"
+variable "location" {
+  type        = string
+  default     = "northeurope"
+  description = "Location of the resource."
 }
-
-variable "instance_name" {
-  description = "EC2 instance name"
-  default     = "Provisioned by Terraform"
-}
-

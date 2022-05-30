@@ -1,28 +1,32 @@
-provider "aws" {
-  region = var.region
-}
-
-data "aws_ami" "ubuntu" {
-  most_recent = true
-
-  filter {
-    name   = "name"
-    values = ["ubuntu/images/hvm-ssd/ubuntu-focal-20.04-amd64-server-*"]
-  }
-
-  filter {
-    name   = "virtualization-type"
-    values = ["hvm"]
-  }
-
-  owners = ["099720109477"] # Canonical
-}
-
-resource "aws_instance" "ubuntu" {
-  ami           = data.aws_ami.ubuntu.id
-  instance_type = var.instance_type
+resource "azurerm_resource_group" "rg" {
+  name     = "mxa-rasptest"
+  location = var.location
 
   tags = {
-    Name = var.instance_name
+    customer = "allsop"
+  }
+}
+
+resource "azurerm_sql_server" "sqlserver" {
+  name                         = "mxa-raspsqlserver"
+  resource_group_name          = azurerm_resource_group.rg.name
+  location                     = azurerm_resource_group.rg.location
+  version                      = "12.0"
+  administrator_login          = "mradministrator"
+  administrator_login_password = "thisIsDog11"
+
+  tags = {
+    customer = "allsop"
+  }
+}
+
+resource "azurerm_sql_database" "sqlserver" {
+  name                = "raspdb"
+  resource_group_name = azurerm_resource_group.rg.name
+  location            = azurerm_resource_group.rg.location
+  server_name         = azurerm_sql_server.sqlserver.name
+
+  tags = {
+    customer = "allsop"
   }
 }
