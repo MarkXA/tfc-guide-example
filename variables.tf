@@ -6,6 +6,6 @@ variable "name_prefix" {
 
 variable "location" {
   type        = string
-  default     = "northeurope"
+  default     = "westus3"
   description = "Location of the resource."
 }
