@@ -20,7 +20,7 @@ resource "azurerm_mssql_server" "sqlserver" {
   }
 }
 
-resource "azurerm_mssql_database" "sqlserver" {
+resource "azurerm_mssql_database" "sqldb" {
   name      = "raspdb"
   server_id = azurerm_mssql_server.sqlserver.id
   sku_name  = "Basic"
