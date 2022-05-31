@@ -29,3 +29,83 @@ resource "azurerm_mssql_database" "sqldb" {
     customer = "allsop"
   }
 }
+
+resource "azurerm_redis_cache" "redis" {
+  name                = "mxa-raspredis"
+  location            = azurerm_resource_group.rg.location
+  resource_group_name = azurerm_resource_group.rg.name
+  capacity            = 0
+  family              = "C"
+  sku_name            = "Basic"
+  minimum_tls_version = "1.2"
+
+  redis_configuration {
+  }
+
+  tags = {
+    customer = "allsop"
+  }
+}
+
+resource "azurerm_servicebus_namespace" "example" {
+  name                = "mxa-raspbus"
+  location            = azurerm_resource_group.rg.location
+  resource_group_name = azurerm_resource_group.rg.name
+  sku                 = "Basic"
+
+  tags = {
+    customer = "allsop"
+  }
+}
+
+resource "azurerm_application_insights" "appinsights" {
+  name                = "mxa-raspinsights"
+  location            = azurerm_resource_group.rg.location
+  resource_group_name = azurerm_resource_group.rg.name
+  application_type    = "web"
+
+  tags = {
+    customer = "allsop"
+  }
+}
+
+resource "azurerm_container_registry" "acr" {
+  name                = "mxa-raspacr"
+  resource_group_name = azurerm_resource_group.rg.name
+  location            = azurerm_resource_group.rg.location
+
+  tags = {
+    customer = "allsop"
+  }
+}
+
+resource "azurerm_kubernetes_cluster" "aks" {
+  name                = "mxa-raspaks"
+  location            = azurerm_resource_group.rg.location
+  resource_group_name = azurerm_resource_group.rg.name
+
+  default_node_pool {
+    name       = "default"
+    node_count = 1
+    vm_size    = "Standard_D2_v2"
+  }
+
+  identity {
+    type = "SystemAssigned"
+  }
+
+  tags = {
+    customer = "allsop"
+  }
+}
+
+resource "azurerm_role_assignment" "example" {
+  principal_id                     = azurerm_kubernetes_cluster.aks.kubelet_identity[0].object_id
+  role_definition_name             = "AcrPull"
+  scope                            = azurerm_container_registry.acr.id
+  skip_service_principal_aad_check = true
+
+  tags = {
+    customer = "allsop"
+  }
+}
