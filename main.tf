@@ -115,3 +115,28 @@ resource "azurerm_role_assignment" "aksacrpull" {
   scope                            = azurerm_container_registry.acr.id
   skip_service_principal_aad_check = true
 }
+
+resource "helm_release" "nginx_ingress" {
+  name       = "nginx-ingress-controller"
+
+  repository = "https://charts.bitnami.com/bitnami"
+  chart      = "nginx-ingress-controller"
+
+  set {
+    name  = "service.type"
+    value = "ClusterIP"
+  }
+}
+
+resource "kubernetes_manifest" "deployment-back" {
+  manifest = yamldecode(file("azureVoteDeploymentBack.yaml"))
+}
+resource "kubernetes_manifest" "deployment-front" {
+  manifest = yamldecode(file("azureVoteDeploymentFront.yaml"))
+}
+resource "kubernetes_manifest" "service-back" {
+  manifest = yamldecode(file("azureVoteServiceBack.yaml"))
+}
+resource "kubernetes_manifest" "service-front" {
+  manifest = yamldecode(file("azureVoteServiceFront.yaml"))
+}
