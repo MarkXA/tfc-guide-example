@@ -12,22 +12,8 @@ steps:
   inputs:
     terraformVersion: 'latest'
 
-# - task: AzureCLI@2
-#   inputs:
-#     azureSubscription: 'MVP demos(547dd729-18c3-41a8-8754-967c37693285)'
-#     scriptType: 'bash'
-#     scriptLocation: 'inlineScript'
-#     inlineScript: |
-#       terraform init
-#       terraform plan
-
 - script: terraform init
-  displayName: 'terraform init'
 
 - script: terraform plan
-  displayName: 'terraform plan'
 
-# - script: |
-#     echo Add other tasks to build, test, and deploy your project.
-#     echo See https://aka.ms/yaml
-#   displayName: 'Run a multi-line script'
+- script: terraform apply
