@@ -13,7 +13,7 @@ steps:
     terraformVersion: 'latest'
 
 - script: terraform init
-
-- script: terraform plan
+  displayName: 'terraform init'
 
 - script: terraform apply
+  displayName: 'terraform apply'
