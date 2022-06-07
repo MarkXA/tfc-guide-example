@@ -3,7 +3,7 @@ resource "azurerm_resource_group" "rg" {
   location = var.location
 
   tags = {
-    customer = "allsop"
+    customer = var.CUSTOMER
   }
 }
 
@@ -16,7 +16,7 @@ resource "azurerm_mssql_server" "sqlserver" {
   administrator_login_password = "thePassword123!"
 
   tags = {
-    customer = "allsop"
+    customer = var.CUSTOMER
   }
 }
 
@@ -26,7 +26,7 @@ resource "azurerm_mssql_database" "sqldb" {
   sku_name  = "Basic"
 
   tags = {
-    customer = "allsop"
+    customer = var.CUSTOMER
   }
 }
 
@@ -105,7 +105,7 @@ resource "azurerm_kubernetes_cluster" "aks" {
   }
 
   tags = {
-    customer = "allsop"
+    customer = var.CUSTOMER
   }
 }
 
@@ -132,11 +132,11 @@ resource "kubernetes_manifest" "deployment-back" {
   manifest = yamldecode(file("azureVoteDeploymentBack.yaml"))
 }
 resource "kubernetes_manifest" "deployment-front" {
-  manifest = yamldecode(file("azureVoteDeploymentFront.yaml"))
+  manifest = yamldecode(templatefile("azureVoteDeploymentFront.yaml"))
 }
 resource "kubernetes_manifest" "service-back" {
   manifest = yamldecode(file("azureVoteServiceBack.yaml"))
 }
 resource "kubernetes_manifest" "service-front" {
-  manifest = yamldecode(file("azureVoteServiceFront.yaml"))
+  manifest = yamldecode(templatefile("azureVoteServiceFront.yaml"))
 }

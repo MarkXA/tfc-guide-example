@@ -11,5 +11,9 @@ variable "location" {
 }
 
 variable "CUSTOMER" {
-  type = string  
+  type = string
+}
+
+variable "frontName" {
+  type = string
 }

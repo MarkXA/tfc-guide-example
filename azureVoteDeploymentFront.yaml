@@ -1,23 +1,23 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: azure-vote-front
+  name: ${var.frontName}
   namespace: default
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: azure-vote-front
+      app: ${var.frontName}
   template:
     metadata:
       labels:
-        app: azure-vote-front
+        app: ${var.frontName}
     spec:
       nodeSelector:
         "kubernetes.io/os": linux
       containers:
-      - name: azure-vote-front
-        image: mcr.microsoft.com/azuredocs/azure-vote-front:v1
+      - name: ${var.frontName}
+        image: mcr.microsoft.com/azuredocs/${var.frontName}:v1
         resources:
           requests:
             cpu: 100m
