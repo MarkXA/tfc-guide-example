@@ -43,7 +43,7 @@ resource "azurerm_redis_cache" "redis" {
   }
 
   tags = {
-    customer = var.customer
+    customer = var.CUSTOMER
   }
 }
 
@@ -54,7 +54,7 @@ resource "azurerm_servicebus_namespace" "example" {
   sku                 = "Basic"
 
   tags = {
-    customer = var.customer
+    customer = var.CUSTOMER
   }
 }
 
@@ -73,7 +73,7 @@ resource "azurerm_application_insights" "appinsights" {
   application_type    = "web"
 
   tags = {
-    customer = var.customer
+    customer = var.CUSTOMER
   }
 }
 
@@ -84,7 +84,7 @@ resource "azurerm_container_registry" "acr" {
   sku                 = "Basic"
 
   tags = {
-    customer = var.customer
+    customer = var.CUSTOMER
   }
 }
 
