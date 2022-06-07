@@ -1,6 +1,9 @@
 trigger:
 - master
 
+variables:
+- group: Helix
+
 pool:
   vmImage: ubuntu-latest
 
@@ -9,10 +12,13 @@ steps:
   inputs:
     terraformVersion: 'latest'
 
-- script: echo Hello, world!
-  displayName: 'Run a one-line script'
+- script: terraform init
+  displayName: 'terraform init'
 
-- script: |
-    echo Add other tasks to build, test, and deploy your project.
-    echo See https://aka.ms/yaml
-  displayName: 'Run a multi-line script'
+- script: terraform plan
+  displayName: 'terraform plan'
+
+# - script: |
+#     echo Add other tasks to build, test, and deploy your project.
+#     echo See https://aka.ms/yaml
+#   displayName: 'Run a multi-line script'
