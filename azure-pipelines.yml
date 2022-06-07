@@ -15,5 +15,5 @@ steps:
 - script: terraform init
   displayName: 'terraform init'
 
-- script: terraform apply
+- script: terraform apply -auto-approve
   displayName: 'terraform apply'
