@@ -14,6 +14,6 @@ variable "CUSTOMER" {
   type = string
 }
 
-variable "frontName" {
+variable "FRONTNAME" {
   type = string
 }
