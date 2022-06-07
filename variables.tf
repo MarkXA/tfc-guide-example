@@ -9,3 +9,7 @@ variable "location" {
   default     = "westus3"
   description = "Location of the resource."
 }
+
+variable "CUSTOMER" {
+  type = string  
+}
