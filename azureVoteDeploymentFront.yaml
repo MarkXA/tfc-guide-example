@@ -1,23 +1,23 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: ${FRONTNAME}
+  name: FRONTNAME
   namespace: default
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: ${FRONTNAME}
+      app: FRONTNAME
   template:
     metadata:
       labels:
-        app: ${FRONTNAME}
+        app: FRONTNAME
     spec:
       nodeSelector:
         "kubernetes.io/os": linux
       containers:
-      - name: ${FRONTNAME}
-        image: mcr.microsoft.com/azuredocs/${FRONTNAME}:v1
+      - name: FRONTNAME
+        image: mcr.microsoft.com/azuredocs/FRONTNAME:v1
         resources:
           requests:
             cpu: 100m
