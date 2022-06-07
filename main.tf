@@ -132,11 +132,11 @@ resource "kubernetes_manifest" "deployment-back" {
   manifest = yamldecode(file("azureVoteDeploymentBack.yaml"))
 }
 resource "kubernetes_manifest" "deployment-front" {
-  manifest = yamldecode(templatefile("azureVoteDeploymentFront.yaml"))
+  manifest = yamldecode(templatefile("azureVoteDeploymentFront.yaml", { FRONTNAME = var.FRONTNAME }))
 }
 resource "kubernetes_manifest" "service-back" {
   manifest = yamldecode(file("azureVoteServiceBack.yaml"))
 }
 resource "kubernetes_manifest" "service-front" {
-  manifest = yamldecode(templatefile("azureVoteServiceFront.yaml"))
+  manifest = yamldecode(templatefile("azureVoteServiceFront.yaml", { FRONTNAME = var.FRONTNAME }))
 }
