@@ -11,6 +11,14 @@ steps:
 - task: TerraformInstaller@0
   inputs:
     terraformVersion: 'latest'
+- task: AzureCLI@2
+  inputs:
+    azureSubscription: 'MVP demos(547dd729-18c3-41a8-8754-967c37693285)'
+    scriptType: 'bash'
+    scriptLocation: 'inlineScript'
+    inlineScript: |
+      terraform init
+      terraform plan
 
 - script: terraform init
   displayName: 'terraform init'
