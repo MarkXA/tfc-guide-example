@@ -2,7 +2,7 @@ trigger:
 - master
 
 variables:
-- group: Helix
+- group: RASP
 
 pool:
   vmImage: ubuntu-latest
@@ -14,6 +14,9 @@ steps:
 
 - script: terraform init
   displayName: 'terraform init'
+
+- script: terraform apply -target="module.aksCluster" -auto-approve
+  displayName: 'terraform apply aksCluster'
 
 - script: terraform apply -auto-approve
   displayName: 'terraform apply'

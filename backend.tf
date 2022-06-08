@@ -1,14 +1,8 @@
-# The block below configures Terraform to use the 'remote' backend with Terraform Cloud.
-# For more information, see https://www.terraform.io/docs/backends/types/remote.html
 terraform {
-  backend "remote" {
-    hostname     = "app.terraform.io"
-    organization = "Ranyart"
-
-    workspaces {
-      name = "tfc-guide-example"
-    }
+  backend "azurerm" {
+    resource_group_name  = "terraform"
+    storage_account_name = "allsoptfstate"
+    container_name       = "tfstate"
+    key                  = var.STATEFILE
   }
-
-  required_version = ">= 0.13.0"
 }

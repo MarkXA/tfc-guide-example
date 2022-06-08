@@ -4,6 +4,7 @@ resource "kubernetes_manifest" "deployment_azure_vote_back" {
     "kind" = "Deployment"
     "metadata" = {
       "name" = "azure-vote-back"
+      "namespace" = "default"
     }
     "spec" = {
       "replicas" = 1
@@ -62,6 +63,7 @@ resource "kubernetes_manifest" "service_azure_vote_back" {
     "kind" = "Service"
     "metadata" = {
       "name" = "azure-vote-back"
+      "namespace" = "default"
     }
     "spec" = {
       "ports" = [
@@ -82,6 +84,7 @@ resource "kubernetes_manifest" "service_azure_vote_front" {
     "kind" = "Service"
     "metadata" = {
       "name" = "azure-vote-front"
+      "namespace" = "default"
     }
     "spec" = {
       "ports" = [
@@ -102,6 +105,7 @@ resource "kubernetes_manifest" "deployment_azure_vote_front" {
     "kind" = "Deployment"
     "metadata" = {
       "name" = "azure-vote-front"
+      "namespace" = "default"
     }
     "spec" = {
       "replicas" = 1
@@ -155,7 +159,7 @@ resource "kubernetes_manifest" "deployment_azure_vote_front" {
 
 resource "kubernetes_manifest" "ingress_azure_vote" {
   manifest = {
-    "apiVersion" = "extensions/v1beta1"
+    "apiVersion" = "networking.k8s.io/v1"
     "kind" = "Ingress"
     "metadata" = {
       "annotations" = {
@@ -170,12 +174,17 @@ resource "kubernetes_manifest" "ingress_azure_vote" {
           "http" = {
             "paths" = [
               {
-                "backend" = {
-                  "serviceName" = "azure-vote-front"
-                  "servicePort" = 80
-                }
                 "path" = "/"
-              },
+                "pathType" = "Prefix"
+                "backend" = {
+                  "service" = { 
+                    "name" = "azure-vote-front"
+                    "port" = {
+                      "number" = 80
+                    }
+                  }
+                }
+              }
             ]
           }
         },

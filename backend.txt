@@ -1,0 +1,12 @@
+terraform {
+  backend "remote" {
+    hostname     = "app.terraform.io"
+    organization = "Ranyart"
+
+    workspaces {
+      name = "tfc-guide-example"
+    }
+  }
+
+  required_version = ">= 0.13.0"
+}
