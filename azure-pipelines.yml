@@ -12,7 +12,9 @@ steps:
   inputs:
     terraformVersion: 'latest'
 
-- script: terraform init
+- script: |
+    sed -i 's/STATEFILE/$(stateFile)/' ./backend.tf
+    terraform init
   displayName: 'terraform init'
 
 - script: terraform apply -target="module.aksCluster" -auto-approve

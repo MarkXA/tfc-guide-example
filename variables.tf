@@ -3,10 +3,6 @@ variable "location" {
   default     = "westus3"
 }
 
-variable "STATEFILE" {
-  type = string
-}
-
 variable "CUSTOMER" {
   type = string
 }
