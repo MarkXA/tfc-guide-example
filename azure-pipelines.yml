@@ -13,7 +13,7 @@ steps:
     terraformVersion: 'latest'
 
 - script: |
-    sed -i 's/STATEFILE/$(stateFile)/' ./backend.tf
+    sed -i 's/STATEFILE/"$(stateFile)"/' ./backend.tf
     terraform init
   displayName: 'terraform init'
 
