@@ -13,12 +13,17 @@ steps:
     terraformVersion: 'latest'
 
 - script: |
+    cd $(Build.SourcesDirectory)
     sed -i 's/STATEFILE/"$(stateFile)"/' ./backend.tf
     terraform init
   displayName: 'terraform init'
 
-- script: terraform apply -target="module.aksCluster" -auto-approve
+- script: |
+    cd $(Build.SourcesDirectory)
+    terraform apply -target="module.aksCluster" -auto-approve
   displayName: 'terraform apply aksCluster'
 
-- script: terraform apply -auto-approve
+- script: |
+    cd $(Build.SourcesDirectory)
+    terraform apply -auto-approve
   displayName: 'terraform apply'
