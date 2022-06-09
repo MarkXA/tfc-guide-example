@@ -48,7 +48,7 @@ resource "azurerm_redis_cache" "redis" {
 }
 
 resource "azurerm_servicebus_namespace" "example" {
-  name                = "mxa-raspbus"
+  name                = "mxa-raspbusns"
   location            = azurerm_resource_group.rg.location
   resource_group_name = azurerm_resource_group.rg.name
   sku                 = "Basic"
